@@ -2,54 +2,72 @@ import discord
 from discord.ext import commands
 import random
 
-client = commands.Bot(command_prefix='@')
+description = '''An example bot to showcase the discord.ext.commands extension
+module.
 
-token = ("")
+There are a number of utility commands being showcased here.'''
+bot = commands.Bot(command_prefix='?', description=description)
 
 
-@client.event
+@bot.event
 async def on_ready():
-    print('Bot is ready.')
+    print('Logged in as')
+    print(bot.user.name)
+    print(bot.user.id)
+    print('------')
 
 
-@client.command()
-async def ping(ctx):
-    await ctx.send(f"pong!! {round(client.latency *1000 )} ms")
-    pass
+@bot.command()
+async def add(ctx, left: int, right: int):
+    """Adds two numbers together."""
+    await ctx.send(left + right)
 
 
-@client.command(aliases=["qus"])
-async def Qus(ctx, *, qus):
-    res = ["It is certain.",
-           "It is decidedly so.",
-           "Without a doubt.",
-           "Yes - definitely.",
-           "You may rely on it.",
-           "As I see it, yes.",
-           "Most likely.",
-           "Outlook good.",
-           "Yes.",
-           "Signs point to yes.",
-           "Reply hazy, try again.",
-           "Ask again later.",
-           "Better not tell you now.",
-           "Cannot predict now.",
-           "Concentrate and ask again.",
-           "Don't count on it.",
-           "My reply is no.",
-           "My sources say no.",
-           "Outlook not so good.",
-           "Very doubtful."]
-    await ctx.send(f"qus: {qus}\nAns: {random.choice(res)}")
-    pass
+@bot.command()
+async def roll(ctx, dice: str):
+    """Rolls a dice in NdN format."""
+    try:
+        rolls, limit = map(int, dice.split('d'))
+    except Exception:
+        await ctx.send('Format has to be in NdN!')
+        return
+
+    result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
+    await ctx.send(result)
 
 
-@client.command()
-async def on_member_join(self, member):
-    guild = member.guild
-    if guild.system_channel is not None:
-        to_send = 'Welcome {0.mention} to {1.name}!'.format(member, guild)
-        await guild.system_channel.send(to_send)
+@bot.command(description='For when you wanna settle the score some other way')
+async def choose(ctx, *choices: str):
+    """Chooses between multiple choices."""
+    await ctx.send(random.choice(choices))
 
 
-client.run(token)
+@bot.command()
+async def repeat(ctx, times: int, content='repeating...'):
+    """Repeats a message multiple times."""
+    for i in range(times):
+        await ctx.send(content)
+
+
+@bot.command()
+async def joined(ctx, member: discord.Member):
+    """Says when a member joined."""
+    await ctx.send('{0.name} joined in {0.joined_at}'.format(member))
+
+
+@bot.group()
+async def cool(ctx):
+    """Says if a user is cool.
+
+    In reality this just checks if a subcommand is being invoked.
+    """
+    if ctx.invoked_subcommand is None:
+        await ctx.send('No, {0.subcommand_passed} is not cool'.format(ctx))
+
+
+@cool.command(name='bot')
+async def _bot(ctx):
+    """Is the bot cool?"""
+    await ctx.send('Yes, the bot is cool.')
+
+bot.run('')

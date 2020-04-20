@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import random
 
-client = commands.Bot(command_prefix='')
+client = commands.Bot(command_prefix='!')
 
 token = ("")
 
@@ -75,19 +75,25 @@ async def role(ctx):
     pass
 
 
-async def on_message(self, message):
-    # we do not want the bot to reply to itself
-    if message.author.id == self.user.id:
-        return
-
-    if message.content.startswith('!hello'):
-        await message.channel.send('Hello {0.author.mention}'.format(message))
-
-
 @client.command()
 async def hi(ctx):
     await ctx.send("role")
     pass
+
+
+@client.command(name='99')
+async def nine_nine(ctx):
+    brooklyn_99_quotes = [
+        'I\'m the human form of the 💯 emoji.',
+        'Bingpot!',
+        (
+            'Cool. Cool cool cool cool cool cool cool, '
+            'no doubt no doubt no doubt no doubt.'
+        ),
+    ]
+
+    response = random.choice(brooklyn_99_quotes)
+    await ctx.send(response)
 
 
 client.run(token)
