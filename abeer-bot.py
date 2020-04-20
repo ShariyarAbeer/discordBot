@@ -42,4 +42,4 @@ async def Qus(ctx, *, qus):
     pass
 
 
-client.run('NzAxNzc0NjAyNTk4MDg4NzU1.Xp2ZGg.jI2OKsP21uqQa1L5KqW46GtyKVI')
+client.run('token')
