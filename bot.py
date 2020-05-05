@@ -2,9 +2,9 @@ import discord
 from discord.ext import commands
 import random
 
-client = commands.Bot(command_prefix='!')
+client = commands.Bot(command_prefix='')
 
-token = ("")
+token = ("NzAxNzUxMjIxODAzMDI0NDQ2.Xp24eA.hvthTiAEX4wez68_SfW9Frdm-BE")
 
 
 @client.event
@@ -77,7 +77,7 @@ async def role(ctx):
 
 @client.command()
 async def hi(ctx):
-    await ctx.send("role")
+    await ctx.send("hey sir i am Lindas")
     pass
 
 
