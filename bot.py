@@ -4,7 +4,7 @@ import random
 
 client = commands.Bot(command_prefix='')
 
-token = ("NzAxNzUxMjIxODAzMDI0NDQ2.Xp24eA.hvthTiAEX4wez68_SfW9Frdm-BE")
+token = ("")
 
 
 @client.event
@@ -79,10 +79,18 @@ async def role(ctx):
 async def hi(ctx):
     await ctx.send("hey sir i am Lindas")
     pass
+ast = [
+    "as1",
+    "as1",
+    "as1",
+    "as1",
+    "as1",
+    "as1 as",
+]
 
 
 @client.command(name='99')
-async def nine_nine(ctx):
+async def nine_nine(ctx, *, ast):
     brooklyn_99_quotes = [
         'I\'m the human form of the 💯 emoji.',
         'Bingpot!',
