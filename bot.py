@@ -54,7 +54,7 @@ async def on_member_join(self, member):
 
 @client.command()
 async def rule(ctx):
-    await ctx.send("Welcome To Masters of Ravens @everyone\n"
+    await ctx.send("Welcome To This Server @everyone\n"
                    " █ Rules █ \n"
                    "1) Use the correct channels.\n"
                    "2) Heart Respect each other and help each other out with questions.\n"
@@ -65,7 +65,7 @@ async def rule(ctx):
                    "7) Don’t be afraid to ask any questions.\n"
                    "8) Heart Be happy!.\n"
 
-                   "Server link : https://discord.gg/W9dvHUv\n")
+                   "Server link :  https://discord.gg/VMxfnW")
     pass
 
 
@@ -76,9 +76,23 @@ async def role(ctx):
 
 
 @client.command()
+async def linda(ctx):
+    await ctx.send("Yes sir how may I help you")
+    pass
+
+
+@client.command()
 async def hi(ctx):
     await ctx.send("hey sir i am Lindas")
     pass
+
+
+@client.command()
+async def bye(ctx):
+    await ctx.send("Have a good day sir " + ":blush: ")
+    pass
+
+
 ast = [
     "as1",
     "as1",
@@ -102,6 +116,12 @@ async def nine_nine(ctx, *, ast):
 
     response = random.choice(brooklyn_99_quotes)
     await ctx.send(response)
+
+
+@client.command()
+async def on_message(message):
+    if message.content.startswith('!hello'):
+        await message.channel.send('Hello {0.author.mention}'.format(message))
 
 
 client.run(token)
